@@ -47,6 +47,9 @@ class Cartes :
         if self.pv > self.pvmax :
             self.pv = self.pvmax
 
+    def est_en_vie(self):
+        pass 
+    
     def choix_attaque(self) :
         possibilité = [] #va nous permettre de vérifier que la demande du joueur est possible
         print("Entrez le numéro de l'attaque que vous voulez utiliser : ")
@@ -83,9 +86,12 @@ class Joueur:
 
 class Combat :
     def __init__(self , joueur:Joueur , joueur_ennemi:Joueur):
-        pass
 
-    def lancer() :
+    def round() :
         Carte1 = joueur.choisir_carte()
-        Carte2 = jouer_ennemi.choisir_carte_aleatoire()
-
+        Carte2 = joueur_ennemi.choisir_carte_aleatoire()
+        if Carte1.vts > Carte2.vts : #va nous permettre de savoir quelle carte a jouer precedement
+            Carte1_round_precedent = False
+        else :
+            Carte1_round_precedent = True
+        while Carte1.pv

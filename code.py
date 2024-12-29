@@ -17,23 +17,23 @@ class Attaques:
         self.dgts = Degats
         self.ele = Element
 
-    def utiliser(self) :
-        aleatoire = randint(1,5) #va nous permettre de faire des coups critiques
-        if aleatoire == 1 :
-            return self.dgts*1.15
-        else :
-            return self.dgts
+    def utiliser(self):
+        if randint(1, 5) == 1:  # coup critique
+            return self.dgts * 1.15
+        return self.dgts
 
 class Potion :
     def __init__(self,Soin):
         self.soin = Soin
       
-class Cartes :
-    def __init__(self , PV , Vitesse):
-        self.pv = PV
-        self.vts = Vitesse
+class Cartes:
+    def __init__(self, nom, pv, vitesse, element):
+        self.nom = nom
+        self.pv = pv
+        self.pvmax = pv
+        self.vts = vitesse
+        self.ele = element
         self.atq = []
-        self.pvmax = PV
         
     def apprendre_attaque(self,attaque):
         self.atq.append(attaque)
@@ -52,19 +52,20 @@ class Cartes :
     def choix_auto(self) :
         pass
 
-    def choix_attaque(self) :
-        possibilité = [] #va nous permettre de vérifier que la demande du joueur est possible
-        print("Entrez le numéro de l'attaque que vous voulez utiliser :  \n")
-        for i , attaque in enumerate(self.atq) :
-            possibilité.append(i)
-            print(f"{i} - {attaque.nom}")
-        entree = int(input())
-        for i , attaque in enumerate(self.atq) :
-            if i == entree :
-                return attaque
-            else :
-                print("Choix non reconnu veuillez recommencer . \n")
-        return self.choix_attaque()
+    def choix_attaque(self):
+        print(f"\nAttaques disponibles pour {self.nom} :")
+        for i, attaque in enumerate(self.atq):
+            print(f"{i} - {attaque.nom} - {attaque.ele} , {attaque.dgts} dégâts")
+
+        while True:
+            try:
+                choix = int(input())
+                if 0 <= choix < len(self.atq):
+                    return self.atq[choix]
+                else:
+                    print("Choix invalide, essayez encore.")
+            except ValueError:
+                print("Entrée invalide, veuillez entrer un nombre.")
 
 class Joueur:
     def __init__(self,nom , deck, sac):

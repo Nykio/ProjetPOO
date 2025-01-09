@@ -10,6 +10,7 @@ def dedans(element , conteneur):
     return False
 
 from random import randint 
+from random import choice 
 
 class Attaques:
     def __init__(self, Nom, Degats, Element):
@@ -47,10 +48,15 @@ class Cartes:
             self.pv = self.pvmax
 
     def est_en_vie(self):
-        pass 
+        if self.pv > 0 :
+            return True
+        else:
+            return False
 
-    def choix_auto(self) :
-        pass
+    def choix_auto_attaque(self):
+        if not self.atq:
+            return ("aucune attaque disponible")
+        return choice(self.atq)
 
     def choix_attaque(self):
         print(f"\nAttaques disponibles pour {self.nom} :")
@@ -77,24 +83,50 @@ class Joueur:
         self.sac.append(objet)
             
     def ajout_carte(self, carte):
-        self.deck.append(carte)
+        if len(self.deck) < 5:
+            self.deck.append(carte)
+        else:
+            print("Le deck est plein")
 
     def sors_carte(self, carte):
         self.deck.remove(carte)
 
-    def choisir_carte(self) :
-        pass
+    def affiche_sac(self):
+        if self.sac: 
+            print("Contenue du sac :", self.sac)
+        else:
+            print("Le sac est vide :")
 
-    def choisir_carte_aleatoire(self) :
-        pass
+    def affiche_deck(self):
+        if self.deck:
+            print("Contenue du deck :", self.deck)
+        else:
+            print("Le deck est vide :")
+
+    def choisir_carte(self, nom_carte) :
+        for carte in self.deck:
+            if carte.nom == nom_carte:
+                print (f"La carte choisi est '{nom_carte}'")
+                return carte
+            
+        print (f"La carte '{nom_carte}' n'est pas dans le deck")
+        return None
+
+    def choisir_carte_aleatoire(self):
+        if self.deck:
+            carte_aleatoire = choice(self.deck)
+            return carte_aleatoire
+        else:
+            return None
 
 class Combat:
     def __init__(self, joueur: Joueur, joueur_ennemi: Joueur):
         self.joueur = joueur
         self.joueur_ennemi = joueur_ennemi
 
-    def joueur_attaque(self, attaquant: Cartes, cible: Cartes):
-        attaque = attaquant.choix_attaque()
+    def joueur_attaque(self, attaquant: Cartes, cible: Cartes , attaque = None ):
+        if not attaque :
+            attaque = attaquant.choix_attaque()
         degats = attaque.utiliser()
 
         if faiblesse[attaque.ele] == cible.ele:
@@ -111,8 +143,10 @@ class Combat:
         cible.pv -= degats
 
     def round(self):
-        Carte1 = self.joueur.choisir_carte()
+        carte_choisi = str(input("Choissez une carte de votre deck"))
+        Carte1 = self.joueur.choisir_carte(carte_choisi)
         Carte2 = self.joueur_ennemi.choisir_carte_aleatoire()
+        assert(type(Carte2) is Cartes)
 
         print(f"\n{Carte1.nom} - {Carte1.pv} affronte {Carte2.nom} - {Carte2.pv} !")
 
@@ -125,7 +159,8 @@ class Combat:
                 self.joueur_attaque(Carte1, Carte2)
                 tour_joueur = False
             else:
-                self.joueur_attaque(Carte2, Carte1)
+                attaque_ennemi = Carte2.choix_auto_attaque()
+                self.joueur_attaque(Carte2, Carte1 , attaque_ennemi )
                 tour_joueur = True
 
             print(f"\n{Carte1.nom} a {Carte1.pv} PV , {Carte2.nom} a {Carte2.pv} PV")
@@ -147,3 +182,82 @@ class Combat:
             print(f"\n{self.joueur.nom} a perdu le combat !")
         else:
             print(f"\n{self.joueur_ennemi.nom} a perdu le combat !")
+
+
+#PARTIE RPG 
+# Votre joueur
+
+carte_joueur_1 = Cartes(
+    nom="Chevalier d'Argent",
+    pv=100,
+    vitesse=30,
+    element="Nature"
+)
+
+carte_joueur_1.apprendre_attaque(Attaques("Épée bénite", 25, "Nature"))
+carte_joueur_1.apprendre_attaque(Attaques("Bouclier sacré", 15, "Nature"))
+
+carte_joueur_2 = Cartes(
+    nom="Mage de Feu",
+    pv=80,
+    vitesse=20,
+    element="Mana"
+)
+
+carte_joueur_2.apprendre_attaque(Attaques("Boule de feu", 35, "Mana"))
+carte_joueur_2.apprendre_attaque(Attaques("Explosion ardente", 50, "Mana"))
+
+carte_joueur_3 = Cartes(
+    nom="Voleur des Ombres",
+    pv=90,
+    vitesse=40,
+    element="Ombre"
+)
+
+carte_joueur_3.apprendre_attaque(Attaques("Lame empoisonnée", 30, "Ombre"))
+carte_joueur_3.apprendre_attaque(Attaques("Attaque sournoise", 40, "Ombre"))
+
+joueur = Joueur(nom="Héros de la Lumière", deck=[], sac=[])
+joueur.ajout_carte(carte_joueur_1)
+joueur.ajout_carte(carte_joueur_2)
+joueur.ajout_carte(carte_joueur_3)
+
+# Votre adversaire
+
+carte_adversaire_1 = Cartes(
+    nom="Chevalier Noir",
+    pv=110,
+    vitesse=25,
+    element="Ombre"
+)
+
+carte_adversaire_1.apprendre_attaque(Attaques("Lame maudite", 30, "Ombre"))
+carte_adversaire_1.apprendre_attaque(Attaques("Éruption ténébreuse", 40, "Ombre"))
+
+carte_adversaire_2 = Cartes(
+    nom="Invocateur d'Arcanes",
+    pv=90,
+    vitesse=20,
+    element="Mana"
+)
+
+carte_adversaire_2.apprendre_attaque(Attaques("Foudre mystique", 35, "Mana"))
+carte_adversaire_2.apprendre_attaque(Attaques("Pluie de météores", 50, "Mana"))
+
+carte_adversaire_3 = Cartes(
+    nom="Ranger des Bois",
+    pv=100,
+    vitesse=35,
+    element="Nature"
+)
+
+carte_adversaire_3.apprendre_attaque(Attaques("Flèche perçante", 25, "Nature"))
+carte_adversaire_3.apprendre_attaque(Attaques("Tir en rafale", 30, "Nature"))
+
+adversaire = Joueur(nom="Seigneur Sombre", deck=[], sac=[])
+adversaire.ajout_carte(carte_adversaire_1)
+adversaire.ajout_carte(carte_adversaire_2)
+adversaire.ajout_carte(carte_adversaire_3)
+
+combat = Combat(joueur=joueur, joueur_ennemi=adversaire)
+#combat.lancer()

@@ -8,7 +8,7 @@
   - Ombre bat Nature.
 - **Sélection des Cartes et Attaques** :
   - Les joueurs choisissent une carte dans leur deck.
-  - Une attaque est choisie par le joueur (l'adversaire choisit aléatoirement une attaque).
+  - Le joueur lance soit une attaque parmi celles de sa carte (l'adversaire choisit aléatoirement une attaque) soit il sacrifit un round pour soigner sa carte.
 - **Conditions de Victoire** :
   - Si toutes les cartes d'un joueur sont éliminées, l'autre joueur gagne.
 

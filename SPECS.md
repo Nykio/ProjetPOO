@@ -27,7 +27,7 @@ Représente une attaque pouvant être utilisée par une carte.
 
 ---
 
-### Classe `Potion`
+### Classe `Potion` ( Pour des raisons de fluidité de code et de gameplay cette capacité a été retirée )
 Représente un objet de soin.
 - **Attributs** :
   - `soin` (int) : Les points de vie que la potion restaure .

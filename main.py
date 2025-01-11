@@ -39,13 +39,14 @@ class Cartes:
     def apprendre_attaque(self,attaque):
         self.atq.append(attaque)
         
-    def soigner(self,potion:Potion):
-        if self.pv == self.pvmax :
-            print("la carte a déjà tous ses points de vies \n")
+    def soigner(self, potion: Potion):
+        if self.pv == self.pvmax:
+            return "\nLa carte a déjà tous ses points de vie."
         else:
             self.pv += potion.soin
-        if self.pv > self.pvmax :
-            self.pv = self.pvmax
+            if self.pv > self.pvmax:
+                self.pv = self.pvmax
+            return f"\nLa carte est soignée ! Elle a maintenant {self.pv} PV."
 
     def est_en_vie(self):
         if self.pv > 0 :
@@ -131,7 +132,7 @@ class Combat:
 
         if faiblesse[attaque.ele] == cible.ele:
             degats *= 2
-            print(f"\nIncoryable ! {attaque.nom} inflige {degats} dégâts à {cible.nom}.")
+            print(f"Incroyable! {attaque.nom} inflige {degats} dégâts à {cible.nom}.")
 
         elif faiblesse[cible.ele] == attaque.ele:
             degats *= 0.5
@@ -143,35 +144,70 @@ class Combat:
         cible.pv -= degats
 
     def round(self):
-        carte_choisi = str(input("Choissez une carte de votre deck"))
-        Carte1 = self.joueur.choisir_carte(carte_choisi)
         Carte2 = self.joueur_ennemi.choisir_carte_aleatoire()
-        assert(type(Carte2) is Cartes)
 
-        print(f"\n{Carte1.nom} - {Carte1.pv} affronte {Carte2.nom} - {Carte2.pv} !")
+        while True : 
+            carte_choisi = str(input("Choisissez une carte de votre deck : "))
+            Carte1 = self.joueur.choisir_carte(carte_choisi)
+            if type(Carte1) is Cartes :
+                break
+            else :
+                print("\nEntrée invalide , recommencez .")
+                continue
 
-        tour_joueur = False
-        if Carte1.vts > Carte2.vts :
-            tour_joueur = True
+        assert(type(Carte1) is Cartes and type(Carte2) is Cartes)
+
+        print(f"\n{Carte1.nom} : {Carte1.ele} ({Carte1.pv} PV) affronte {Carte2.nom} : {Carte2.ele} ({Carte2.pv} PV) !")
+
+        tour_joueur = Carte1.vts > Carte2.vts
 
         while Carte1.est_en_vie() and Carte2.est_en_vie():
-            if tour_joueur :
-                self.joueur_attaque(Carte1, Carte2)
+
+            if tour_joueur:
+                print("\nQue souhaitez-vous faire ? 0 - Soigner, 1 - Attaquer")
+
+                while True:
+                    try:
+                        choix = int(input("Votre choix : "))
+                        if choix == 0:  # Soigner
+                            potion_trouvee = False
+                            for ele in self.joueur.sac :
+                                if type(ele) is Potion :
+                                    Carte1.soigner(ele)
+                                    potion_trouvee = True
+                                    self.joueur.sac.remove(ele)
+                                    break
+
+                            if not potion_trouvee:
+                                print("\nVous ne disposez d'aucune potion.")
+
+                        elif choix == 1:  # Attaquer
+                            self.joueur_attaque(Carte1, Carte2)
+
+                        else:
+                            print("Choix invalide, réessayez.")
+                            continue
+
+                        break
+                    except ValueError:
+                        print("Entrée invalide, veuillez entrer un nombre.")
+                        
                 tour_joueur = False
             else:
                 attaque_ennemi = Carte2.choix_auto_attaque()
-                self.joueur_attaque(Carte2, Carte1 , attaque_ennemi )
+                self.joueur_attaque(Carte2, Carte1 , attaque_ennemi)
                 tour_joueur = True
 
-            print(f"\n{Carte1.nom} a {Carte1.pv} PV , {Carte2.nom} a {Carte2.pv} PV")
-
+            print(f"\n{Carte1.nom} a {Carte1.pv} PV. {Carte2.nom} a {Carte2.pv} PV.")
 
         if Carte1.est_en_vie():
             print(f"\n{Carte2.nom} est hors jeu !")
             self.joueur_ennemi.sors_carte(Carte2)
+
         else:
             print(f"\n{Carte1.nom} est hors jeu !")
             self.joueur.sors_carte(Carte1)
+
 
     def lancer(self):
         print(f"\nLe combat commence entre {self.joueur.nom} et {self.joueur_ennemi.nom} !")
@@ -217,10 +253,14 @@ carte_joueur_3 = Cartes(
 carte_joueur_3.apprendre_attaque(Attaques("Lame empoisonnée", 30, "Ombre"))
 carte_joueur_3.apprendre_attaque(Attaques("Attaque sournoise", 40, "Ombre"))
 
+potion = Potion(30)
+
 joueur = Joueur(nom="Héros de la Lumière", deck=[], sac=[])
 joueur.ajout_carte(carte_joueur_1)
 joueur.ajout_carte(carte_joueur_2)
 joueur.ajout_carte(carte_joueur_3)
+joueur.ajout_sac(potion)
+joueur.ajout_sac(potion)
 
 # Votre adversaire
 

@@ -23,7 +23,7 @@ Représente une attaque pouvant être utilisée par une carte.
   - `dgts` (int) : Dégâts infligés.
   - `ele` (str) : Élément de l'attaque (Nature, Mana, Ombre).
 - **Méthodes** :
-  - `utiliser()` : Renvoie les dégâts infligés, avec une chance de coup critique.
+  - `self.utiliser()` : Renvoie les dégâts infligés, avec une chance de coup critique.
 
 ---
 
@@ -44,11 +44,11 @@ Représente une carte utilisée en combat.
   - `ele` (str) : Élément de la carte.
   - `atq` (list[Attaques]) : Liste des attaques apprises.
 - **Méthodes** :
-  - `apprendre_attaque(attaque)` : Ajoute une attaque à la carte.
-  - `soigner(potion)` : Soigne la carte avec une potion.
-  - `est_en_vie()` : Renvoie `True` si la carte est en vie.
-  - `choisir_attaque()` : Renvoie une attaque aléatoire.
-  - `choix_attaque()` : Permet de choisir une attaque parmi celles disponibles.
+  - `self.apprendre_attaque(attaque)` : Ajoute une attaque à la carte.
+  - `self.soigner(potion)` : Soigne la carte avec une potion.
+  - `self.est_en_vie()` : Renvoie `True` si la carte est en vie.
+  - `self.choisir_attaque()` : Renvoie une attaque aléatoire.
+  - `self.choix_attaque()` : Permet de choisir une attaque parmi celles disponibles.
 
 ---
 
@@ -59,11 +59,11 @@ Représente un joueur participant au combat.
   - `deck` (list[Cartes]) : Liste des cartes dans le deck du joueur.
   - `sac` (list) : Liste des objets dans le sac du joueur.
 - **Méthodes** :
-  - `ajout_carte(carte)` : Ajoute une carte au deck.
-  - `sors_carte(carte)` : Retire une carte du deck.
-  - `affiche_deck()` : Affiche le contenu du deck.
-  - `choisir_carte(nom_carte)` : Renvoie une carte choisie par nom.
-  - `choisir_carte_aleatoire()` : Renvoie une carte aléatoire du deck.
+  - `self.ajout_carte(carte)` : Ajoute une carte au deck.
+  - `self.sors_carte(carte)` : Retire une carte du deck.
+  - `self.affiche_deck()` : Affiche le contenu du deck.
+  - `self.choisir_carte(nom_carte)` : Renvoie une carte choisie par nom.
+  - `self.choisir_carte_aleatoire()` : Renvoie une carte aléatoire du deck.
 
 ---
 
@@ -73,8 +73,8 @@ Gère les combats entre deux joueurs.
   - `joueur` (Joueur) : Joueur principal.
   - `joueur_ennemi` (Joueur) : Adversaire.
 - **Méthodes** :
-  - `joueur_attaque(attaquant, cible)` : Gère l'attaque d'une carte sur une autre.
-  - `round()` : Gère un round de combat.
-  - `lancer()` : Démarre le combat complet.
+  - `self.joueur_attaque(attaquant, cible)` : Gère l'attaque d'une carte sur une autre.
+  - `self.round()` : Gère un round de combat.
+  - `self.lancer()` : Démarre le combat complet.
 
 ---

@@ -20,8 +20,7 @@ Ce programme simule un jeu de combat de cartes dans un univers médiéval-fantas
    - **Nature** > **Mana**
    - **Mana** > **Ombre**
    - **Ombre** > **Nature**
-       
-De plus il y a une chance sur cinq que l'attaque soit un coup critique .
+     De plus il y a une chance sur cinq que l'attaque soit un coup critique .
 
 4. **Système de Combat** : 
    Les joueurs choisissent une carte de leur deck et affrontent une carte du deck de l'adversaire. Le combat continue jusqu'à ce qu'un joueur n'ait plus de cartes en vie dans son deck .

@@ -68,5 +68,6 @@ Ce programme simule un jeu de combat de cartes dans un univers médiéval-fantas
 - **Élément** : Ombre 🌑  
 - **Attaques** :  
   - **Lame empoisonnée** : Puissance 30 (Ombre 🌑)  
-  - **Attaque sournoise** : Puissance 40 (Ombre 🌑)  
-
+  - **Attaque sournoise** : Puissance 40 (Ombre 🌑)
+ 
+  *Certaine Carte ont été généré par IA*

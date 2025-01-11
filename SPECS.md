@@ -8,7 +8,7 @@
   - Ombre bat Nature.
 - **Sélection des Cartes et Attaques** :
   - Les joueurs choisissent une carte dans leur deck.
-  - Une attaque est choisie par le joueur (ou aléatoirement pour l'adversaire).
+  - Une attaque est choisie par le joueur (l'adversaire choisit aléatoirement une attaque).
 - **Conditions de Victoire** :
   - Si toutes les cartes d'un joueur sont éliminées, l'autre joueur gagne.
 
@@ -21,16 +21,16 @@ Représente une attaque pouvant être utilisée par une carte.
 - **Attributs** :
   - `nom` (str) : Nom de l'attaque.
   - `dgts` (int) : Dégâts infligés.
-  - `ele` (str) : Élément de l'attaque (Nature, Mana, Ombre).
+  - `ele` (str) : Élément de l'attaque parmi Nature , Mana , Ombre .
 - **Méthodes** :
-  - `self.utiliser()` : Renvoie les dégâts infligés, avec une chance de coup critique.
+  - `self.utiliser()` : Renvoie les dégâts de l'attaque avec une chance de coup critique.
 
 ---
 
 ### Classe `Potion`
 Représente un objet de soin.
 - **Attributs** :
-  - `soin` (int) : Points de vie restaurés.
+  - `soin` (int) : Les points de vie que la potion restaure .
 
 ---
 
@@ -38,11 +38,11 @@ Représente un objet de soin.
 Représente une carte utilisée en combat.
 - **Attributs** :
   - `nom` (str) : Nom de la carte.
-  - `pv` (int) : Points de vie actuels.
-  - `pvmax` (int) : Points de vie maximum.
-  - `vts` (int) : Vitesse de la carte.
-  - `ele` (str) : Élément de la carte.
-  - `atq` (list[Attaques]) : Liste des attaques apprises.
+  - `pv` (int) : Points de vie actuels .
+  - `pvmax` (int) : Points de vie maximum ( utile à savoir lors de l'application d'une potion ).
+  - `vts` (int) : Vitesse de la carte .
+  - `ele` (str) : Élément de la carte .
+  - `atq` (List[Attaques]) : Liste des attaques apprises par la carte .
 - **Méthodes** :
   - `self.apprendre_attaque(attaque)` : Ajoute une attaque à la carte.
   - `self.soigner(potion)` : Soigne la carte avec une potion.
@@ -56,8 +56,8 @@ Représente une carte utilisée en combat.
 Représente un joueur participant au combat.
 - **Attributs** :
   - `nom` (str) : Nom du joueur.
-  - `deck` (list[Cartes]) : Liste des cartes dans le deck du joueur.
-  - `sac` (list) : Liste des objets dans le sac du joueur.
+  - `deck` (List[Cartes]) : Liste des cartes dans le deck du joueur.
+  - `sac` (List) : Liste des objets dans le sac du joueur.
 - **Méthodes** :
   - `self.ajout_carte(carte)` : Ajoute une carte au deck.
   - `self.sors_carte(carte)` : Retire une carte du deck.

@@ -1,7 +1,7 @@
-# Spécifications Techniques du Programme
+# SPECS
 
-## Règles des Combats
-- **Dégâts Critiques** : Une attaque a 20% de chance d'infliger 1.15 fois ses dégâts de base.
+## Rappel : Règles des Combats
+- **Dégâts Critiques** : Une attaque a 20% de chance d'infliger 15% de dégât  en plus .
 - **Avantage Élémentaire** :
   - Nature bat Mana.
   - Mana bat Ombre.

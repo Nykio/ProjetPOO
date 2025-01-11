@@ -1,9 +1,3 @@
-
----
-
-### Fichier `SPECS.md`
-
-```markdown
 # Spécifications Techniques du Programme
 
 ## Règles des Combats

@@ -19,8 +19,9 @@ Ce programme simule un jeu de combat de cartes dans un univers médiéval-fantas
    Chaque carte peut apprendre des attaques avec des dégâts et un élément (Nature, Mana ou Ombre). Les interactions élémentaires suivent des règles de faiblesses :
    - **Nature** > **Mana**
    - **Mana** > **Ombre**
-   - **Ombre** > **Nature**  
-       De plus il y a une chance sur cinq que l'attaque soit un coup critique .
+   - **Ombre** > **Nature**
+  
+     De plus il y a une chance sur cinq que l'attaque soit un coup critique .
 
 4. **Système de Combat** : 
    Les joueurs choisissent une carte de leur deck et affrontent une carte du deck de l'adversaire. Le combat continue jusqu'à ce qu'un joueur n'ait plus de cartes en vie dans son deck .

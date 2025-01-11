@@ -131,7 +131,7 @@ class Combat:
 
         if faiblesse[attaque.ele] == cible.ele:
             degats *= 2
-            print(f"\nCoup critique ! {attaque.nom} inflige {degats} dégâts à {cible.nom}.")
+            print(f"\nIncoryable ! {attaque.nom} inflige {degats} dégâts à {cible.nom}.")
 
         elif faiblesse[cible.ele] == attaque.ele:
             degats *= 0.5

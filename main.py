@@ -84,7 +84,7 @@ class Joueur:
         self.sac.append(objet)
             
     def ajout_carte(self, carte):
-        if len(self.deck) < 5:
+        if len(self.deck) < 3:
             self.deck.append(carte)
         else:
             print("Le deck est plein")

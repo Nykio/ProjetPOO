@@ -17,9 +17,9 @@ Ce programme simule un jeu de combat de cartes dans un univers médiéval-fantas
    
 3. **Système d'Attaques** : 
    Chaque carte peut apprendre des attaques avec des dégâts et un élément (Nature, Mana ou Ombre). Les interactions élémentaires suivent des règles de faiblesses :
-   - **Nature** > **Mana**
-   - **Mana** > **Ombre**
-   - **Ombre** > **Nature**
+   - **Nature** < **Mana**
+   - **Mana** < **Ombre**
+   - **Ombre** < **Nature**
   
      De plus il y a une chance sur cinq que l'attaque soit un coup critique .
 

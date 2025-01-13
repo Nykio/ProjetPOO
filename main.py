@@ -2,7 +2,7 @@ faiblesse = {"Nature" : "Mana" ,
             "Mana" : "Ombre" , 
             "Ombre" : "Nature"}
 
-def dedans(element , conteneur):
+def dedans(element , conteneur): #fonction in avec un conteneur
     for a in conteneur :
         if a == element :
             return True
@@ -24,8 +24,10 @@ class Attaques:
         return self.dgts
 
 class Potion :
-    def __init__(self,Soin):
+    def __init__(self,nom:str,Soin:int):
+        assert(type(Soin) is int)
         self.soin = Soin
+        self.nom = nom
       
 class Cartes:
     def __init__(self, nom, pv, vitesse, element):
@@ -124,6 +126,7 @@ class Combat:
     def __init__(self, joueur: Joueur, joueur_ennemi: Joueur):
         self.joueur = joueur
         self.joueur_ennemi = joueur_ennemi
+        assert(type(joueur) is Joueur and type(joueur_ennemi) is Joueur)
 
     def joueur_attaque(self, attaquant: Cartes, cible: Cartes , attaque = None ):
         if not attaque :
@@ -176,6 +179,7 @@ class Combat:
                                     Carte1.soigner(ele)
                                     potion_trouvee = True
                                     self.joueur.sac.remove(ele)
+                                    assert(Carte1.pv <= Carte1.pvmax)
                                     break
 
                             if not potion_trouvee:
@@ -253,7 +257,7 @@ carte_joueur_3 = Cartes(
 carte_joueur_3.apprendre_attaque(Attaques("Lame empoisonnée", 30, "Ombre"))
 carte_joueur_3.apprendre_attaque(Attaques("Attaque sournoise", 40, "Ombre"))
 
-potion = Potion(30)
+potion = Potion("Breuvage Moyen" , 30)
 
 joueur = Joueur(nom="Héros de la Lumière", deck=[], sac=[])
 joueur.ajout_carte(carte_joueur_1)
@@ -301,3 +305,4 @@ adversaire.ajout_carte(carte_adversaire_3)
 
 combat = Combat(joueur=joueur, joueur_ennemi=adversaire)
 #combat.lancer()
+

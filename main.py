@@ -95,14 +95,18 @@ class Joueur:
         self.deck.remove(carte)
 
     def affiche_sac(self):
-        if self.sac: 
-            print("Contenue du sac :", self.sac)
+        if self.sac:
+            print("Contenue du sac :")
+            for objet in self.sac:
+                print(objet.nom)
         else:
             print("Le sac est vide :")
-
+    
     def affiche_deck(self):
         if self.deck:
-            print("Contenue du deck :", self.deck)
+            print("Contenue du deck :")
+            for objet in self.deck:
+                print(objet.nom)
         else:
             print("Le deck est vide :")
 

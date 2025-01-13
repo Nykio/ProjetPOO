@@ -72,4 +72,4 @@ Ce programme simule un jeu de combat de cartes dans un univers médiéval-fantas
   - **Attaque sournoise** : Puissance 40 (Ombre 🌑)
 
 
-*Certaines Cartes ont été générées par IA*
+*Les Cartes ont été générées par IA afin de tester le code*

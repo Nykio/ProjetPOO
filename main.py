@@ -137,11 +137,11 @@ class Combat:
             attaque = attaquant.choix_attaque()
         degats = attaque.utiliser()
 
-        if faiblesse[attaque.ele] == cible.ele:
+        if faiblesse[cible.ele] == attaque.ele :
             degats *= 2
             print(f"Incroyable! {attaque.nom} inflige {degats} dégâts à {cible.nom}.")
 
-        elif faiblesse[cible.ele] == attaque.ele:
+        elif faiblesse[attaque.ele] == cible.ele :
             degats *= 0.5
             print(f"\nCoup peu efficace... {attaque.nom} inflige {degats} dégâts à {cible.nom}.")
 

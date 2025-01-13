@@ -44,7 +44,7 @@ Ce programme simule un jeu de combat de cartes dans un univers médiéval-fantas
 
 ## Comment Exécuter le Programme
 1. Une fois le programme télécharger il est préférable de l'utiliser sur VS Code car la fenetre d'entrée du joueur cause des problèmes ailleurs .
-2. Vous n'avez qu'à utiliser la commande "combat.lancer()" dans le terminale et profiter du jeu !
+2. S'offre à vous la possibilité d'inspecter votre deck : `joueur.affiche_deck()` , votre sac `joueur.affiche_sac()` ou bien demarrer le combat avec la commande `combat.lancer()` dans le terminale et profiter du jeu !
 3. Le joueur préconfiguré que vous allez incarner , Héros de la lumière , possède le deck suivant :  
 
 # 🛡️ **Chevalier d'Argent**  

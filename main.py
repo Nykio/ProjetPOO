@@ -223,8 +223,10 @@ class Combat:
             self.round()
 
         if not self.joueur.deck:
+            assert self.joueur_ennemi.deck 
             print(f"\n{self.joueur.nom} a perdu le combat !")
         else:
+            assert not self.joueur_ennemi.deck 
             print(f"\n{self.joueur_ennemi.nom} a perdu le combat !")
 
 
@@ -310,3 +312,32 @@ adversaire.ajout_carte(carte_adversaire_3)
 combat = Combat(joueur=joueur, joueur_ennemi=adversaire)
 #combat.lancer()
 
+
+#Tests 
+
+carte = Cartes("Test", 50, 20, "Nature")
+carte.soigner(Potion("Potion de soin", 30))
+assert carte.pv == 50
+
+
+carte1 = Cartes("Chevalier", 100, 30, "Nature")
+carte2 = Cartes("Dragon", 150, 20, "Mana")
+attaque = Attaques("Épée", 25, "Nature")
+
+combattest = Combat(Joueur("Test1", [], []) , Joueur("Test2", [], []))
+combattest.joueur_attaque(carte1, carte2, attaque)
+
+# Carte2 est faible face à l'attaque
+assert 150 - (25 * 2) <= carte2.pv <= (150 - (25 * 2))*1.15
+
+# Carte2 est résistante face à l'attaque
+carte2.pv = carte2.pvmax
+attaque.ele = "Mana"
+combat.joueur_attaque(carte1, carte2, attaque)
+assert 150 - (25 * 0.5) <= carte2.pv <= (150 - (25 * 0.5))*1.15
+
+# Carte2 est neutre face à l'attaque
+carte2.pv = carte2.pvmax
+attaque.ele = "Ombre"
+combat.joueur_attaque(carte1, carte2, attaque)
+assert 150 - 25  <= carte2.pv <= ( 150 - 25 )*1.15

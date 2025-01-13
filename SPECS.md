@@ -3,11 +3,11 @@
 ## Rappel : Règles des Combats
 - **Dégâts Critiques** : Une attaque a 20% de chance d'infliger 15% de dégât  en plus .
 - **Avantage Élémentaire** :
-  - Nature bat Mana.
-  - Mana bat Ombre.
-  - Ombre bat Nature.
+  - Nature est faible face au Mana.
+  - Mana est faible face au Ombre.
+  - Ombre est faible face au Nature.
 - **Sélection des Cartes et Attaques** :
-  - Les joueurs choisissent une carte dans leur deck.
+  - Les joueurs choisissent premièrement une carte dans leur deck.
   - Le joueur lance soit une attaque parmi celles de sa carte (l'adversaire choisit aléatoirement une attaque) soit il sacrifit un round pour soigner sa carte.
 - **Conditions de Victoire** :
   - Si toutes les cartes d'un joueur sont éliminées, l'autre joueur gagne.

@@ -31,6 +31,7 @@ Représente une attaque pouvant être utilisée par une carte.
 Représente un objet de soin.
 - **Attributs** :
   - `soin` (int) : Les points de vie que la potion restaure .
+  - `nom` (str) : Nom de l'objet Potion .
 
 ---
 

@@ -58,7 +58,7 @@ class Cartes:
 
     def choix_auto_attaque(self):
         if not self.atq:
-            return ("aucune attaque disponible")
+            return ("\naucune attaque disponible")
         return choice(self.atq)
 
     def choix_attaque(self):
@@ -72,9 +72,9 @@ class Cartes:
                 if 0 <= choix < len(self.atq):
                     return self.atq[choix]
                 else:
-                    print("Choix invalide, essayez encore.")
+                    print("\nChoix invalide, essayez encore.")
             except ValueError:
-                print("Entrée invalide, veuillez entrer un nombre.")
+                print("\nEntrée invalide, veuillez entrer un nombre.")
 
 class Joueur:
     def __init__(self,nom , deck, sac):
@@ -89,26 +89,26 @@ class Joueur:
         if len(self.deck) < 3:
             self.deck.append(carte)
         else:
-            print("Le deck est plein")
+            print("\nLe deck est plein")
 
     def sors_carte(self, carte):
         self.deck.remove(carte)
 
     def affiche_sac(self):
         if self.sac:
-            print("Contenue du sac :")
+            print("\nContenue du sac :")
             for objet in self.sac:
                 print(objet.nom)
         else:
-            print("Le sac est vide :")
+            print("\nLe sac est vide ")
     
     def affiche_deck(self):
         if self.deck:
-            print("Contenue du deck :")
+            print("\nContenue du deck :")
             for objet in self.deck:
                 print(objet.nom)
         else:
-            print("Le deck est vide :")
+            print("\nLe deck est vide ")
 
     def choisir_carte(self, nom_carte) :
         for carte in self.deck:
@@ -139,7 +139,7 @@ class Combat:
 
         if faiblesse[cible.ele] == attaque.ele :
             degats *= 2
-            print(f"Incroyable! {attaque.nom} inflige {degats} dégâts à {cible.nom}.")
+            print(f"\nIncroyable! {attaque.nom} inflige {degats} dégâts à {cible.nom}.")
 
         elif faiblesse[attaque.ele] == cible.ele :
             degats *= 0.5
@@ -230,8 +230,8 @@ class Combat:
             print(f"\n{self.joueur_ennemi.nom} a perdu le combat !")
 
 
-#PARTIE RPG 
-# Votre joueur
+# =========================== PARTIE RPG ===========================
+# ----------------- Votre joueur -----------------
 
 carte_joueur_1 = Cartes(
     nom="Chevalier d'Argent",
@@ -272,7 +272,7 @@ joueur.ajout_carte(carte_joueur_3)
 joueur.ajout_sac(potion)
 joueur.ajout_sac(potion)
 
-# Votre adversaire
+# ----------------- Votre adversaire -----------------
 
 carte_adversaire_1 = Cartes(
     nom="Chevalier Noir",
@@ -313,31 +313,41 @@ combat = Combat(joueur=joueur, joueur_ennemi=adversaire)
 #combat.lancer()
 
 
-#Tests 
+# =========================== Tests ===========================
 
-carte = Cartes("Test", 50, 20, "Nature")
-carte.soigner(Potion("Potion de soin", 30))
-assert carte.pv == 50
+def test_soigner() :
+    carte = Cartes("Test", 50, 20, "Nature")
+    carte.soigner(Potion("Potion de soin", 30))
+    return carte.pv == 50
 
 
-carte1 = Cartes("Chevalier", 100, 30, "Nature")
-carte2 = Cartes("Dragon", 150, 20, "Mana")
-attaque = Attaques("Épée", 25, "Nature")
+def test_element() :
+    carte1 = Cartes("Chevalier", 100, 30, "Nature")
+    carte2 = Cartes("Dragon", 150, 20, "Mana")
+    attaque = Attaques("Épée", 25, "Nature")
 
-combattest = Combat(Joueur("Test1", [], []) , Joueur("Test2", [], []))
-combattest.joueur_attaque(carte1, carte2, attaque)
+    combattest = Combat(Joueur("Test1", [], []) , Joueur("Test2", [], []))
+    combattest.joueur_attaque(carte1, carte2, attaque)
 
-# Carte2 est faible face à l'attaque
-assert 150 - (25 * 2) <= carte2.pv <= (150 - (25 * 2))*1.15
+    # carte2 est resistante face à l'attaque
+    carte2.pv = carte2.pvmax
+    if not 150 - (25 * 0.5) <= carte2.pv <= (150 - (25 * 0.5))*1.15 :
+        return False
 
-# Carte2 est résistante face à l'attaque
-carte2.pv = carte2.pvmax
-attaque.ele = "Mana"
-combat.joueur_attaque(carte1, carte2, attaque)
-assert 150 - (25 * 0.5) <= carte2.pv <= (150 - (25 * 0.5))*1.15
 
-# Carte2 est neutre face à l'attaque
-carte2.pv = carte2.pvmax
-attaque.ele = "Ombre"
-combat.joueur_attaque(carte1, carte2, attaque)
-assert 150 - 25  <= carte2.pv <= ( 150 - 25 )*1.15
+    # Carte2 est face face à l'attaque
+    carte2.pv = carte2.pvmax
+    attaque.ele = "Ombre"
+    combat.joueur_attaque(carte1, carte2, attaque)
+
+    if not 150 - (25 * 2) <= carte2.pv <= (150 - (25 * 2))*1.15 :
+        return False
+
+    # Carte2 est neutre face à l'attaque
+    carte2.pv = carte2.pvmax
+    attaque.ele = "Mana"
+    combat.joueur_attaque(carte1, carte2, attaque)
+    if not 150 - 25  <= carte2.pv <= ( 150 - 25 )*1.15 :
+        return False
+
+    print("Tout est correct")

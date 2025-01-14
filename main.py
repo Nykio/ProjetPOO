@@ -177,11 +177,9 @@ class Combat:
                     try:
                         choix = int(input("Votre choix : "))
                         if choix == 0:  # Soigner
-                            potion_trouvee = False
                             for ele in self.joueur.sac :
                                 if type(ele) is Potion :
                                     Carte1.soigner(ele)
-                                    potion_trouvee = True
                                     self.joueur.sac.remove(ele)
                                     assert(Carte1.pv <= Carte1.pvmax)
                                     break

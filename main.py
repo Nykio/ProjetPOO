@@ -336,7 +336,6 @@ def test_element() :
     if not 150 - (25 * 0.5) <= carte2.pv <= (150 - (25 * 0.5))*1.15 :
         return False
 
-
     # Carte2 est face face à l'attaque
     carte2.pv = carte2.pvmax
     attaque.ele = "Ombre"

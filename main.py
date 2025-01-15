@@ -149,6 +149,8 @@ class Combat:
             print(f"\n{attaque.nom} inflige {degats} dégâts à {cible.nom}.")
 
         cible.pv -= degats
+        if cible.pv < 0 :
+            cible.pv = 0
 
     def round(self):
         Carte2 = self.joueur_ennemi.choisir_carte_aleatoire()
